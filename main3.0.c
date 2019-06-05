@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <conio.h>
+#include <time.h>
 
 void menu ();
 void cadastraCliente();
@@ -11,6 +12,8 @@ void listarTodosClientes();
 void listarClientesDevendo();
 int contaLinhaCliente();
 int contaLinhaProduto();
+void venderFiado ();
+void fechaCaixa();
 
 typedef struct clienteLoja {
 	int id;
@@ -25,6 +28,14 @@ typedef struct produtoLoja{
 	int codigo;
 	float preco;
 }produtoLoja;
+
+struct vendas{
+	int idCliente;
+	int codigoProduto;
+	int quantidadeProdutos;
+};
+
+typedef struct vendas vendas;
 	
 main (){
 	
@@ -39,6 +50,7 @@ main (){
 void menu (){
 		
 	int opcao;
+	system ("cls");
 	
 	printf ("-- -- -- CAIXA -- -- -- \n");
 	printf ("Digite 1 para cadastrar clientes \n");
@@ -71,7 +83,7 @@ void menu (){
 			break;
 			
 		case 5:
-			//efetuaVenda();
+			venderFiado();
 			break;
 			
 		case 6:
@@ -243,3 +255,57 @@ void listarClientesDevendo(){
 	system ("cls");
 	menu();
 }
+
+void venderFiado (){
+	
+	int i, aux = 0, idCliente, codigoProduto, quantidadeProdutos;
+	vendas *v;
+	
+	v = calloc (100, 3*sizeof(int));
+	
+	v[0].idCliente = 1;
+	v[0].codigoProduto = 2;
+	v[0].quantidadeProdutos = 5;
+	v[1].idCliente = 1;
+	v[1].codigoProduto = 2;
+	v[1].quantidadeProdutos = 5;
+	
+	system ("cls");
+	
+	for (i = 0; i < 100; i++){	
+		if (v[i].codigoProduto != 0 || v[i].quantidadeProdutos != 0){
+			aux++;
+		}
+	}
+	
+	printf ("Informe o ID do Cliente \n");
+	scanf ("%d", &idCliente);
+	printf ("Informe o Código do Produto \n");
+	scanf ("%d", &codigoProduto);
+	printf ("Informe a quantidade de Produtos \n");
+	scanf ("%d", &quantidadeProdutos);
+	
+	if (idCliente > 1) {
+		if (codigoProduto > 1) {
+			if (quantidadeProdutos > 1){
+				v[aux].idCliente = idCliente;
+				v[aux].codigoProduto = codigoProduto;
+				v[aux].quantidadeProdutos = quantidadeProdutos;
+				printf ("Venda cadastrada com sucesso! \n");
+			} else {
+			printf ("Quantidade inválida \n");
+			}
+		} else {
+			printf ("Código do Produto inválido \n");
+		}
+	} else {
+		printf ("ID do cliente inválido \n");
+	}
+	
+	for (i = 0; i < 100; i++){
+		printf ("%d , %d, %d \n", v[i].idCliente, v[i].codigoProduto , v[i].quantidadeProdutos);
+	}
+	getch();
+	menu ();	
+}
+
