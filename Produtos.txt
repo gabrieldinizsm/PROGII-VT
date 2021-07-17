@@ -1,0 +1,5 @@
+1;pedra;20;
+2;leite;13;
+3;erveja;15,50;
+4;tauba;20,00;
+5;sodk;200,00;
